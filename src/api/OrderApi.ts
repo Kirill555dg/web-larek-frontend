@@ -1,7 +1,7 @@
 import { Order, OrderResult } from '../types';
 import Api from './Api';
 
-export class OrderApi extends Api {
+export default class OrderApi extends Api {
 	constructor(baseUrl: string, options: RequestInit = {}) {
 		super(baseUrl, options);
 	}
