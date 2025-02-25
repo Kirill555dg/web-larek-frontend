@@ -1,12 +1,11 @@
-// core/Component.ts
-
 /**
- * Базовый класс для создания UI-компонентов
+ * Базовый класс для UI-компонентов
+ *
+ * @template T - Тип данных компонента (по умолчанию object)
  */
-export abstract class Component<T extends object = object> {
+export default abstract class Component<T extends object = object> {
 	/**
-	 * Базовый конструктор компонента
-	 * @param container Родительский HTML-элемент
+	 * @param container - Родительский DOM-элемент (всегда HTMLElement)
 	 */
 	protected constructor(protected readonly container: HTMLElement) {}
 
