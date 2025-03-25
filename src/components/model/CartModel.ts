@@ -3,12 +3,12 @@ import { Model } from "../core/Model";
 import ProductModel from "./ProductModel";
 
 
-export default class CartModel extends Model<Product[]> {
+export default class CartModel extends Model<Record<string, unknown>> {
   private products: ProductModel;
   private cartItems: string[] = []; // Хранит ID товаров в порядке добавления
 
   constructor(products: ProductModel, events: IEvents) {
-    super([], events);
+    super({}, events);
     this.products = products;
   }
 

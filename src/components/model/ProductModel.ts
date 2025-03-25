@@ -3,7 +3,7 @@ import { Model } from "../core/Model";
 import { LarekApi } from "../LarekApi";
 
 
-export default class ProductModel extends Model<Product> {
+export default class ProductModel extends Model<Record<string, unknown>> {
   private api: LarekApi;
   private products: Map<string, Product> = new Map();
 
