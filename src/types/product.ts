@@ -13,9 +13,3 @@ export interface Product {
   category: ProductCategory;
   price: number | null; // null для "бесценного" товара
 }
-
-// Ответ API для списка товаров
-export interface ProductListResponse {
-  total: number;
-  items: Product[];
-}
