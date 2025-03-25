@@ -20,7 +20,7 @@ export class LarekApi extends Api implements ILarekApi {
    * @returns Промис с массивом товаров.
    */
   getProductList(): Promise<Product[]> {
-    return this.get("/products").then((data: ApiListResponse<Product>) =>
+    return this.get("/product").then((data: ApiListResponse<Product>) =>
       data.items.map((item) => ({
         ...item,
         image: this.cdn + item.image, // Добавляем полный путь к изображению
@@ -34,7 +34,7 @@ export class LarekApi extends Api implements ILarekApi {
    * @returns Промис с товаром или `null`, если товар не найден.
    */
   getProductItem(id: string): Promise<Product | null> {
-    return this.get(`/products/${id}`)
+    return this.get(`/product/${id}`)
       .then((item: Product) => ({
         ...item,
         image: this.cdn + item.image,
