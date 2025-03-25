@@ -3,6 +3,7 @@ export type PaymentMethod = 'online' | 'offline';
 export interface OrderInfo {
   payment: PaymentMethod;
   address: string;
+  total: number;
 }
 
 export interface Contacts {
