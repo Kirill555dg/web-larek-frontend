@@ -35,4 +35,3 @@ const api = new LarekApi(CDN_URL, API_URL);
 // api.createOrder(testOrder)
 //   .then(orderResult => console.log("Order Result:", orderResult))
 //   .catch(error => console.error("Error creating order:", error));
-
