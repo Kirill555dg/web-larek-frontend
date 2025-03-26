@@ -3,7 +3,7 @@ import { Model } from "../core/Model";
 import CartModel from "./CartModel";
 
 
-export class OrderModel extends Model<Record<string, unknown>> {
+export default class OrderModel extends Model<Record<string, unknown>> {
   private cart: CartModel;
   private order: Order;
 
