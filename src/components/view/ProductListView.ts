@@ -1,58 +1,56 @@
-import Component from '../core/Component';
-import { Product } from '../../types';
-import { EventEmitter } from '../core/EventEmitter';
+import { Product, IEvents } from "../../types";
+import Component from "../core/Component";
 
-/**
- * Представление списка товаров на главной странице
- */
+
 export default class ProductListView extends Component<Product[]> {
-	private eventEmitter: EventEmitter;
+  private readonly template: HTMLTemplateElement;
+  private readonly gallery: HTMLElement;
 
-	/**
-	 * Конструктор класса
-	 * @param container Родительский элемент списка товаров
-	 * @param eventEmitter Глобальный эмиттер событий
-	 */
-	constructor(container: HTMLElement, eventEmitter: EventEmitter) {
-		super(container);
-		this.eventEmitter = eventEmitter;
-	}
+  constructor(container: HTMLElement, private events: IEvents) {
+    super(container);
 
-	/**
-	 * Рендерит список товаров
-	 * @param products Список товаров для отображения
-	 */
-	render(products: Product[]): HTMLElement {
-		this.container.innerHTML = ''; // Очищаем контейнер перед обновлением
+    this.template = document.getElementById('card-catalog') as HTMLTemplateElement;
+    this.gallery = container.querySelector('.gallery') as HTMLElement;
+  }
 
-		products.forEach((product) => {
-			const productElement = this.createProductElement(product);
-			this.container.appendChild(productElement);
-		});
+  /**
+   * Отображает список товаров в галерее
+   * @param products Список товаров
+   */
+  render(products: Product[]): HTMLElement {
+    this.gallery.innerHTML = ''; // Очищаем перед рендером
 
-		return this.container;
-	}
+    products.forEach((product) => {
+      const card = this.createProductCard(product);
+      this.gallery.appendChild(card);
+    });
 
-	/**
-	 * Создаёт HTML-элемент для карточки товара
-	 * @param product Данные товара
-	 * @returns HTMLElement
-	 */
-	private createProductElement(product: Product): HTMLElement {
-		const element = document.createElement('div');
-		element.classList.add('product-card');
-		element.dataset.productId = String(product.id);
+    return this.container;
+  }
 
-		element.innerHTML = `
-        <img src="${product.image}" alt="${product.title}" class="product-image">
-        <h3 class="product-title">${product.title}</h3>
-        <p class="product-price">${product.price} ₽</p>
-      `;
+  /**
+   * Создаёт карточку товара на основе шаблона
+   * @param product Данные о товаре
+   * @returns Готовый элемент карточки
+   */
+  private createProductCard(product: Product): HTMLElement {
+    const card = this.template.content.cloneNode(true) as HTMLElement;
+    const cardElement = card.querySelector('.gallery__item') as HTMLElement;
+    const title = card.querySelector('.card__title') as HTMLElement;
+    const category = card.querySelector('.card__category') as HTMLElement;
+    const image = card.querySelector('.card__image') as HTMLImageElement;
+    const price = card.querySelector('.card__price') as HTMLElement;
 
-		element.addEventListener('click', () => {
-			this.eventEmitter.emit('product:click', product);
-		});
+    title.textContent = product.title;
+    category.textContent = product.category;
+    image.src = product.image;
+    image.alt = product.title;
+    price.textContent = product.price !== null ? `${product.price} синапсов` : 'Бесценно';
 
-		return element;
-	}
+    cardElement.addEventListener('click', () => {
+      this.events.emit('product:click', product);
+    });
+
+    return cardElement;
+  }
 }
