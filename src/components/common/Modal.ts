@@ -18,7 +18,6 @@ export class Modal extends Component<IModalData> {
 
     this._closeButton.addEventListener('click', this.close.bind(this));
 
-    // Закрываем по клику на фон (оверлей), но не на содержимое
     this.container.addEventListener('click', (event) => {
       if (event.target === this.container) {
         this.close();
@@ -30,7 +29,7 @@ export class Modal extends Component<IModalData> {
     if (value) {
       this._content.replaceChildren(value);
     } else {
-      this._content.innerHTML = ''; // Очищаем содержимое
+      this._content.innerHTML = '';
     }
   }
 
@@ -41,7 +40,7 @@ export class Modal extends Component<IModalData> {
 
   close() {
     this.container.classList.remove('modal_active');
-    this.content = null; // Очищаем контент при закрытии
+    this.content = null;
     this.events.emit('modal:close');
   }
 

@@ -18,7 +18,7 @@ export default class ProductListView extends Component<Product[]> {
    * @param products Список товаров
    */
   render(products: Product[]): HTMLElement {
-    this.gallery.innerHTML = ''; // Очищаем перед рендером
+    this.gallery.innerHTML = '';
 
     products.forEach((product) => {
       const card = this.createProductCard(product);
