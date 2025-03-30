@@ -4,13 +4,11 @@ import Component from "../core/Component";
 
 export default class ProductListView extends Component<Product[]> {
   private readonly template: HTMLTemplateElement;
-  private readonly gallery: HTMLElement;
 
   constructor(container: HTMLElement, private events: IEvents) {
     super(container);
 
     this.template = document.getElementById('card-catalog') as HTMLTemplateElement;
-    this.gallery = container.querySelector('.gallery') as HTMLElement;
   }
 
   /**
@@ -18,11 +16,11 @@ export default class ProductListView extends Component<Product[]> {
    * @param products Список товаров
    */
   render(products: Product[]): HTMLElement {
-    this.gallery.innerHTML = '';
+    this.container.innerHTML = '';
 
     products.forEach((product) => {
       const card = this.createProductCard(product);
-      this.gallery.appendChild(card);
+      this.container.appendChild(card);
     });
 
     return this.container;

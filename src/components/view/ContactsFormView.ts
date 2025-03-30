@@ -1,7 +1,7 @@
 import { IEvents } from "../../types";
 import { Contacts } from "../../types/order";
 import { ensureElement } from "../../utils/utils";
-import { Form } from "../core/Form";
+import { Form } from "../common/Form";
 
 
 export class ContactsFormView extends Form<Contacts> {

@@ -1,6 +1,6 @@
 import { IEvents } from "../../types";
 import { ensureElement } from "../../utils/utils";
-import Component from "./Component";
+import Component from "../core/Component";
 
 
 interface IFormState {
