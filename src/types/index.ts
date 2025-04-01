@@ -1,5 +1,11 @@
 export type { Product } from './product';
-export type { Order, OrderResult, PaymentMethod } from './order';
+export type {
+	Order,
+	OrderResult,
+	PaymentMethod,
+	OrderInfo,
+	Contacts,
+} from './order';
 export type { AppState, FormErrors } from './app-state';
 export type {
 	AppEvent,

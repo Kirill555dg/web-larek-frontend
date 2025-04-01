@@ -18,44 +18,48 @@ export default class ProductPresenter {
   }
 
   private initialize() {
-    // Загрузка начальных данных
-    this.productModel.loadProducts();
-
-    // Подписка на события модели
-    this.events.on('product:list', (data: { products: Product[] }) => {
-      this.listView.render(data.products);
+    // Подписка на события
+    this.events.on('product:list', (products: Product[]) => {
+      this.listView.render(products);
     });
 
-    // Обработка выбора товара
     this.events.on('product:select', (product: Product) => {
-      this.currentProduct = product;
-      this.modalView.render(product);
-      this.events.emit('product:modal:open');
-      this.updateButtonState();
+      this.handleProductSelect(product);
     });
 
-    // Обработка добавления в корзину
     this.events.on('product:add', (product: Product) => {
-      if (this.validateProduct(product)) {
-        this.cartModel.addToCart(product.id);
-        this.events.emit('cart:update');
-      }
+      this.handleAddToCart(product);
     });
 
-    // Реакция на изменения в корзине
     this.events.on('cart:update', () => {
       this.updateButtonState();
     });
+
+    // Загрузка товаров
+    this.productModel.loadProducts();
   }
 
-  private validateProduct(product: Product): boolean {
-    if (!product.price) {
-      this.events.emit('error', {
-        message: 'Нельзя добавить товар без цены'
-      });
-      return false;
+  private handleProductSelect(product: Product) {
+    this.currentProduct = product;
+    this.modalView.render(product);
+    this.updateButtonState();
+  }
+
+  private handleAddToCart(product: Product) {
+    try {
+      if (product.price === null) {
+        throw new Error('Нельзя добавить товар без цены');
+      }
+
+      if (this.cartModel.isInCart(product.id)) {
+        throw new Error('Товар уже в корзине');
+      }
+
+      this.cartModel.addToCart(product.id);
+      this.events.emit('cart:update');
+    } catch (error) {
+      console.error(error);
     }
-    return true;
   }
 
   private updateButtonState() {
@@ -68,12 +72,5 @@ export default class ProductPresenter {
       inCart ? 'Уже в корзине' : 'В корзину',
       inCart || isPriceless
     );
-  }
-
-  public showProductDetails(productId: string) {
-    const product = this.productModel.getById(productId);
-    if (product) {
-      this.events.emit('product:select', product);
-    }
   }
 }
