@@ -46,7 +46,7 @@ export default class ProductListView extends Component<Product[]> {
     price.textContent = product.price !== null ? `${product.price} синапсов` : 'Бесценно';
 
     cardElement.addEventListener('click', () => {
-      this.events.emit('product:click', product);
+      this.events.emit('product:select', product);
     });
 
     return cardElement;

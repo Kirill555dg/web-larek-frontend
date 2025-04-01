@@ -41,7 +41,7 @@ export default class ProductModalView extends Component<Product> {
     this.setDisabled(this.button, this._inCart);
 
     this.button.addEventListener('click', () => {
-      this.events.emit('product:click', product);
+      this.events.emit('product:add', product);
     });
 
     this.container.innerHTML = '';
