@@ -8,7 +8,7 @@ interface IFormState {
   errors: string[];
 }
 
-export class Form<T> extends Component<IFormState> {
+export default class Form<T> extends Component<IFormState> {
   protected _submit: HTMLButtonElement;
   protected _errors: HTMLElement;
 
@@ -42,7 +42,7 @@ export class Form<T> extends Component<IFormState> {
     this._submit.disabled = !value;
   }
 
-  set errors(value: string) {
+  set errors(value: string[]) {
     this.setText(this._errors, value);
   }
 

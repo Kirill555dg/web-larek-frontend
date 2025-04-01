@@ -6,7 +6,7 @@ interface IModalData {
   content: HTMLElement | null;
 }
 
-export class Modal extends Component<IModalData> {
+export default class Modal extends Component<IModalData> {
   protected _closeButton: HTMLButtonElement;
   protected _content: HTMLElement;
 
@@ -35,13 +35,13 @@ export class Modal extends Component<IModalData> {
 
   open() {
     this.container.classList.add('modal_active');
-    this.events.emit('modal:open');
+    this.events.emit('page:locked');
   }
 
   close() {
     this.container.classList.remove('modal_active');
     this.content = null;
-    this.events.emit('modal:close');
+    this.events.emit('page:unlocked');
   }
 
   render(data: IModalData): HTMLElement {

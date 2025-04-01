@@ -4,6 +4,7 @@ import ProductModel from "../model/ProductModel";
 import ProductListView from "../view/ProductListView";
 import ProductModalView from "../view/ProductModalView";
 
+
 export default class ProductPresenter {
   private currentProduct: Product | null = null;
 
@@ -19,7 +20,7 @@ export default class ProductPresenter {
 
   private initialize() {
     // Подписка на события
-    this.events.on('product:list', (products: Product[]) => {
+    this.events.on('product:list', ({ products }: { products: Product[] }) => {
       this.listView.render(products);
     });
 
@@ -41,7 +42,8 @@ export default class ProductPresenter {
 
   private handleProductSelect(product: Product) {
     this.currentProduct = product;
-    this.modalView.render(product);
+    const content = this.modalView.render(product);
+    this.events.emit('modal:open', { content: content });
     this.updateButtonState();
   }
 

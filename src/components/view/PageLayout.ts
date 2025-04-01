@@ -2,12 +2,13 @@ import { IEvents } from "../../types";
 import { ensureElement } from "../../utils/utils";
 import Component from "../core/Component";
 
+
 interface IPageState {
   counter: number;
   locked: boolean;
 }
 
-export class PageLayout extends Component<IPageState> {
+export default class PageLayout extends Component<IPageState> {
   protected _counter: HTMLElement;
   protected _wrapper: HTMLElement;
   protected _basketButton: HTMLButtonElement;

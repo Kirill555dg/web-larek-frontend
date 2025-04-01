@@ -3,7 +3,8 @@ import { OrderSuccessResponse } from "../../types/order";
 import { ensureElement } from "../../utils/utils";
 import Component from "../core/Component";
 
-export class OrderResponseView extends Component<OrderSuccessResponse> {
+
+export default class OrderResponseView extends Component<OrderSuccessResponse> {
   private closeButton: HTMLButtonElement;
   private descriptionElement: HTMLElement;
 

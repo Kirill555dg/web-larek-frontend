@@ -27,7 +27,8 @@ export default class ProductModel extends Model<Record<string, unknown>> {
       this.emitChanges('product:list', {
         products: Array.from(this.products.values()),
       });
-    } catch {
+    } catch (e) {
+      console.error(e)
       this.emitChanges('product:error', {
         message: 'Ошибка загрузки товаров',
       });

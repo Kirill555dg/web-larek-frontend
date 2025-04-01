@@ -1,15 +1,19 @@
-import { IEvents } from "../../types";
-import { Contacts } from "../../types/order";
+import { IEvents, Contacts } from "../../types";
 import { ensureElement } from "../../utils/utils";
-import { Form } from "./common/Form";
+import Form from "./common/Form";
 
 
-export class ContactsFormView extends Form<Contacts> {
+export default class ContactsFormView extends Form<Contacts> {
   protected _email: HTMLInputElement;
   protected _phone: HTMLInputElement;
 
   constructor(container: HTMLFormElement, events: IEvents) {
     super(container, events);
+
+    this.events.on('order:success', () => {
+      this.email = '';
+      this.phone = '';
+    })
 
     this._email = ensureElement<HTMLInputElement>('input[name="email"]', this.container);
     this._phone = ensureElement<HTMLInputElement>('input[name="phone"]', this.container);

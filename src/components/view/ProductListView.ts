@@ -1,4 +1,5 @@
 import { Product, IEvents } from "../../types";
+import { ProductCategory } from "../../types/product";
 import Component from "../core/Component";
 
 
@@ -38,6 +39,18 @@ export default class ProductListView extends Component<Product[]> {
     const category = card.querySelector('.card__category') as HTMLElement;
     const image = card.querySelector('.card__image') as HTMLImageElement;
     const price = card.querySelector('.card__price') as HTMLElement;
+    const categoryClassMap: Record<ProductCategory, string> = {
+      'софт-скил': 'card__category_soft',
+      'хард-скил': 'card__category_hard',
+      'другое': 'card__category_other',
+      'дополнительное': 'card__category_additional',
+      'кнопка': 'card__category_button',
+    };
+
+    const categoryClass = categoryClassMap[product.category] || '';
+    if (categoryClass) {
+      category.classList.add(categoryClass);
+    }
 
     title.textContent = product.title;
     category.textContent = product.category;

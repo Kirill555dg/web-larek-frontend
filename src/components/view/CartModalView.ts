@@ -2,7 +2,7 @@ import { Product, IEvents } from "../../types";
 import Component from "../core/Component";
 
 
-export class CartModalView extends Component<Product[]> {
+export default class CartModalView extends Component<Product[]> {
   private list: HTMLUListElement;
   private total: HTMLElement;
   private submitButton: HTMLButtonElement;
@@ -17,7 +17,7 @@ export class CartModalView extends Component<Product[]> {
     this.itemTemplate = document.getElementById('card-basket') as HTMLTemplateElement;
 
     this.submitButton.addEventListener('click', () => {
-      this.events.emit('order:submit');
+      this.events.emit('cart:submit');
     });
   }
 
