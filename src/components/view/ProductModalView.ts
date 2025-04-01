@@ -1,4 +1,5 @@
 import { IEvents, Product } from '../../types';
+import { ProductCategory } from '../../types/product';
 import Component from '../core/Component';
 
 
@@ -29,6 +30,18 @@ export default class ProductModalView extends Component<Product> {
     const description = content.querySelector('.card__text') as HTMLElement;
     const price = content.querySelector('.card__price') as HTMLElement;
     this.button = content.querySelector('.card__button') as HTMLButtonElement;
+    const categoryClassMap: Record<ProductCategory, string> = {
+      'софт-скил': 'card__category_soft',
+      'хард-скил': 'card__category_hard',
+      'другое': 'card__category_other',
+      'дополнительное': 'card__category_additional',
+      'кнопка': 'card__category_button',
+    };
+
+    const categoryClass = categoryClassMap[product.category] || '';
+    if (categoryClass) {
+      category.classList.add(categoryClass);
+    }
 
     title.textContent = product.title;
     category.textContent = product.category;
